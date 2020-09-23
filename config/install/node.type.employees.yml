@@ -1,0 +1,13 @@
+langcode: es
+status: true
+dependencies:
+  enforced:
+    module:
+      - employees
+name: 'Empleados'
+type: employees
+description: 'Información de empleados'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: true

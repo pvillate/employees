@@ -1,0 +1,9 @@
+employees:
+  version: 1.x
+  js:
+    js/functions.js: {}
+  css:
+    theme:
+      css/styles.css: {}
+  dependencies:
+    - core/jquery

@@ -1,0 +1,7 @@
+employees.settings:
+  path: '/admin/config/employees/settings'
+  defaults:
+    _form: '\Drupal\employees\Form\EmployeesSettingsForm'
+    _title: 'Configuración parámetros empleados'
+  requirements:
+    _permission: 'administer site configuration'

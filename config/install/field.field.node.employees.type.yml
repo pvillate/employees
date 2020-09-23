@@ -1,0 +1,25 @@
+langcode: es
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_type
+    - node.type.employees
+    - taxonomy.vocabulary.tipo_salario
+id: node.employees.field_tipo_de_salario
+field_name: field_tipo_de_salario
+entity_type: node
+bundle: employee
+label: Autor
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler_settings:
+    sort:
+      field: _none
+    target_bundles:
+      tipo_salario: tipo_salario
+  handler: 'default:taxonomy_term'
+field_type: entity_reference

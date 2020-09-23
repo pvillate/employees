@@ -1,0 +1,6 @@
+<?php
+
+function employees_theme($existing, $type, $theme, $path) {
+  $themes['employees'] = [];
+  return $themes;  
+}

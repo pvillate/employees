@@ -1,0 +1,10 @@
+name: Empleados
+description: 'Módulo manejo de empleados'
+package: Custom
+type: module
+core_version_requirement: ^8.8 || ^9
+libraries:
+  - employees/employees
+dependencies:
+  - drupal:taxonomy
+  - drupal:node

@@ -1,0 +1,7 @@
+langcode: es
+status: true
+dependencies: {  }
+name: 'Tipo salario'
+vid: tipo_salario
+description: ''
+weight: 0
