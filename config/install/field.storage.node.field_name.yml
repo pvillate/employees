@@ -4,6 +4,9 @@ dependencies:
   module:
     - node
     - text
+  enforced:
+    module:
+      - employees
 id: node.field_name
 field_name: field_name
 entity_type: node

@@ -2,24 +2,27 @@ langcode: es
 status: true
 dependencies:
   config:
-    - field.storage.node.field_type
+    - field.storage.node.field_salary_type
     - node.type.employees
     - taxonomy.vocabulary.tipo_salario
-id: node.employees.field_tipo_de_salario
-field_name: field_tipo_de_salario
+id: node.employees.field_salary_type
+field_name: field_salary_type
 entity_type: node
-bundle: employee
-label: Autor
+bundle: employees
+label: 'Tipo de salario'
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
+  handler: 'default:taxonomy_term'
   handler_settings:
-    sort:
-      field: _none
     target_bundles:
       tipo_salario: tipo_salario
-  handler: 'default:taxonomy_term'
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

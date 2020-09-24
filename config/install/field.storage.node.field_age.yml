@@ -3,7 +3,9 @@ status: true
 dependencies:
   module:
     - node
-    - text
+  enforced:
+    module:
+      - employees
 id: node.field_age
 field_name: field_age
 entity_type: node

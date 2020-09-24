@@ -1,15 +1,18 @@
 langcode: es
+status: true
 dependencies:
   config:
-  - field.storage.node.field_name
-  - node.type.employees
-id: node.employee.field_name
+    - field.storage.node.field_name
+    - node.type.employees
+id: node.employees.field_name
 field_name: field_name
 entity_type: node
-bundle: employee
-label: 'Nombre del empleado'
+bundle: employees
+label: 'Nombre empleado'
 description: ''
 required: false
-default_value: ''
-settings: { }
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
 field_type: string

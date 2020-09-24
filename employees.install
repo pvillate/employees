@@ -4,12 +4,12 @@ use \Drupal\taxonomy\Entity\Term;
 use \Drupal\taxonomy\Entity\Vocabulary;
 
 function employees_install() {
-    $taxonomy = Vocabulary::create(array(
+    /*$taxonomy = Vocabulary::create(array(
         'vid' => 'tipo_salario',
         'name' => t('Tipos de salario')
     ));
 
-    $taxonomy->save();
+    $taxonomy->save();*/
  
     $terms = array('Salario bajo', 'Salario medio', 'Salario alto');
     

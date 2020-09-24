@@ -3,14 +3,17 @@ status: true
 dependencies:
   module:
     - node
-    - text
-id: node.field_id
-field_name: field_id
+  enforced:
+    module:
+      - employees
+id: node.field_id_remoto
+field_name: field_id_remoto
 entity_type: node
-type: integer
+type: string
 settings:
-  unsigned: false
-  size: normal
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1
