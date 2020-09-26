@@ -1,6 +1,90 @@
 <?php
 
+use Drupal\taxonomy\Entity\Term;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\Core\Form\FormState;
+use Drupal\Core\Form\FormStateInterface;
+
 function employees_theme($existing, $type, $theme, $path) {
-  $themes['employees'] = [];
-  return $themes;  
+  $variables['employees'] = ['render element' => 'form'];
+  return $variables;
 }
+
+function employees_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  if ($view->id() == 'taxonomy_term') {
+    //$view->setExposedInput();
+    $view->setAjaxEnabled(true);
+    $definition = [
+      'table' => 'node__field_salary_type',
+      'field' => 'entity_id',
+      'left_table' => 'node_field_data',
+      'left_field' => 'nid',
+    ];
+
+    $join = \Drupal::service('plugin.manager.views.join')->createInstance('standard', $definition);
+    $query->addRelationship('term', $join, 'node');
+
+    $sort_definition = [
+      'table' => 'node__field_name',
+      'field' => 'entity_id',
+      'left_table' => 'node_field_data',
+      'left_field' => 'nid',
+    ];
+    
+    $join = \Drupal::service('plugin.manager.views.join')->createInstance('standard', $sort_definition);
+    $query->addRelationship('term', $join, 'node');
+    $query->addOrderBy('node__field_name', 'field_name_value', 'ASC');
+    
+    if (!empty($view->exposed_raw_input['alpha_filter'])) {
+      $filter = $view->exposed_raw_input['alpha_filter'];
+    } else {
+      $filter = 'A';
+    }
+    $query->addWhere(0, 'node__field_name.field_name_value', db_like($filter).'%', 'LIKE');
+  }
+}
+
+/*function employees_views_pre_view(ViewExecutable $view){
+  if ($view->id() == 'taxonomy_term' AND $view->current_display == 'page_1') {
+    //$view->setExposedInput(['letters' => 'A']);
+    $exposed_filters = ['field_name_value' => 'A'];
+    $view->exposed_raw_input = array_merge($exposed_filters, (array)$view->exposed_raw_input);
+  }
+}*/
+
+
+function employees_form_views_exposed_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $view = $form_state->getStorage('view');
+  //$view->setAjaxEnabled(true);
+  if(($view['view']->id() == 'taxonomy_term') AND ($view['view']->current_display == 'page_1')) {
+    $alphabet = range('A', 'Z');
+    $letters = array();
+    
+    foreach($alphabet AS $letter) {
+      $letters[$letter] = $letter;
+    }
+
+    $form['alpha_filter'] = array(
+      '#type' => 'radios',
+      '#options' => $letters,
+      //'#default_value' => 'A',
+      //'#attributes' => ['onchange' => 'document.getElementById("edit-submit-taxonomy-term").click()']
+      '#attributes' => ['onchange' => 'this.form.submit()']
+    );
+  }
+}
+
+/*function employees_views_data_alter(array &$data) {
+  $data['node__field_name']['alpha_filter'] = [
+    'title' => 'Filtro alfabético',
+    'group' => 'Taxonomy - node',
+    'filter' => [
+      'title' => 'Filtro alfabético',
+      'help' => 'Filtrar por orden alfabético',
+      'field' => 'field_name_value',
+      'id' => 'alpha_views_filter',
+      //'handler' => 'filter_by_letter',
+    ],
+  ];
+}*/

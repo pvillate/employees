@@ -4,22 +4,27 @@ use \Drupal\taxonomy\Entity\Term;
 use \Drupal\taxonomy\Entity\Vocabulary;
 
 function employees_install() {
-    /*$taxonomy = Vocabulary::create(array(
-        'vid' => 'tipo_salario',
-        'name' => t('Tipos de salario')
-    ));
-
-    $taxonomy->save();*/
- 
     $terms = array('Salario bajo', 'Salario medio', 'Salario alto');
     
     foreach($terms AS $term) {
         $taxonomy_term = Term::create(array(
                 'parent' => array(),
                 'name' => $term,
-                'vid' => 'tipo_salario'
+                'vid' => 'tipo_salario',
             )
         );
         $taxonomy_term->save();
+    }
+
+    $entity_type = 'node';
+    $bundle = 'employees';
+
+    $fields = array('field_age', 'field_id_remoto', 'field_name', 'field_salary_type');
+
+    foreach($fields AS $field) {
+        $field['field_name'] = $field;
+        entity_get_form_display($entity_type, $bundle, 'default')
+            ->setComponent($field['field_name'], array())
+            ->save();
     }
 }
